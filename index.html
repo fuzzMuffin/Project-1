@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maafin aku bibub</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+            overflow: hidden;
+            background-image: url('https://cdn.pixabay.com/photo/2023/10/19/10/58/woman-8326207_1280.png'); /* Ganti dengan URL gambar background */
+            background-size: cover; /* Agar background menutupi seluruh layar */
+            background-position: center; /* Gambar berada di tengah */
+            background-attachment: fixed; /* Agar gambar tidak bergerak saat di-scroll */
+            background-repeat: no-repeat; /* Agar gambar tidak diulang */
+            color: white; /* Agar teks lebih jelas jika background gelap */
+        }
+
+        .content {
+            font-size: 20px;
+            padding: 0 10px;
+            background: rgba(0, 0, 0, 0.5); /* Semi-transparan untuk kontras teks di atas background */
+            border-radius: 10px;
+            display: inline-block;
+            padding: 20px;
+        }
+
+        .buttons {
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 15px;
+            font-size: 16px;
+            margin: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            border: none;
+            background-color: #f39c12;
+            color: white;
+        }
+
+        button:hover {
+            background-color: #e67e22;
+        }
+
+        #loveContainer {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .heart {
+            position: absolute;
+            color: red;
+            animation: fall 5s linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                opacity: 1;
+                transform: translateY(-50px);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(100vh);
+            }
+        }
+
+        /* Responsiveness for mobile */
+        @media screen and (max-width: 600px) {
+            h1 {
+                font-size: 24px;
+            }
+
+            button {
+                font-size: 14px;
+                padding: 8px 12px;
+            }
+
+            .content {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>Maafin aku bibub</h1>
+        <div class="buttons">
+            <button id="yesBtn">Iya</button>
+            <button id="noBtn">Ngga</button>
+        </div>
+    </div>
+
+    <div id="loveContainer"></div>
+
+    <script>
+        document.getElementById('noBtn').addEventListener('click', function() {
+            const button = this;
+            const randomX = Math.floor(Math.random() * (window.innerWidth - button.clientWidth));
+            const randomY = Math.floor(Math.random() * (window.innerHeight - button.clientHeight));
+
+            button.style.position = 'absolute';
+            button.style.left = `${randomX}px`;
+            button.style.top = `${randomY}px`;
+        });
+
+        document.getElementById('yesBtn').addEventListener('click', function() {
+            setInterval(createFallingHeart, 300);
+        });
+
+        function createFallingHeart() {
+            const loveContainer = document.getElementById('loveContainer');
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.textContent = '❤️';
+            
+            const randomX = Math.random() * window.innerWidth;
+            const randomSize = Math.random() * 50 + 10; // Ukuran acak antara 10px hingga 60px
+            const randomDuration = Math.random() * 3 + 2; // Durasi acak antara 2 hingga 5 detik
+
+            heart.style.left = `${randomX}px`;
+            heart.style.fontSize = `${randomSize}px`;
+            heart.style.animationDuration = `${randomDuration}s`;
+            
+            loveContainer.appendChild(heart);
+
+            // Hapus heart setelah selesai animasi
+            setTimeout(() => {
+                heart.remove();
+            }, randomDuration * 1000);
+        }
+    </script>
+</body>
+</html>
